@@ -1,4 +1,4 @@
-package cbedoy.pokemongoutils;
+package cbedoy.pokemongoutils.providers;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -6,6 +6,7 @@ import java.util.List;
 import cbedoy.pokemongoutils.pojos.Option;
 
 /**
+ * Pokemon-Go-Utils
  * Created by bedoy on 8/1/16.
  */
 

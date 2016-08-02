@@ -1,6 +1,7 @@
-package cbedoy.pokemongoutils;
+package cbedoy.pokemongoutils.abstracts;
 
 
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
@@ -8,13 +9,19 @@ import android.widget.BaseAdapter;
 import java.util.List;
 
 /**
- * Created by bedoy on 8/1/16.
+ * Pokemon-Go-Utils
+ * Created by bed]oy on 8/1/16.
  */
-public abstract class AbstractCell<T, Holder> extends BaseAdapter {
+public abstract class AbstractCell<POJO, HOLDER> extends BaseAdapter {
 
-    protected List<T> dataModel;
+    protected List<POJO> dataModel;
+    protected LayoutInflater layoutInflater;
 
-    public AbstractCell(List<T> dataModel)
+    public void setLayoutInflater(LayoutInflater layoutInflater) {
+        this.layoutInflater = layoutInflater;
+    }
+
+    public AbstractCell(List<POJO> dataModel)
     {
         this.dataModel = dataModel;
     }
@@ -37,15 +44,17 @@ public abstract class AbstractCell<T, Holder> extends BaseAdapter {
     @Override
     public View getView(int position, View convertView, ViewGroup parent)
     {
-        Holder holder = null;
+        HOLDER holder = null;
 
         if (convertView == null)
         {
             convertView = inflateViewAndInjectHolder(holder);
+
+            convertView.setTag(holder);
         }
         else
         {
-            holder = (Holder) convertView.getTag();
+            holder = (HOLDER) convertView.getTag();
         }
 
         reloadHolder(holder, dataModel.get(position));
@@ -53,7 +62,7 @@ public abstract class AbstractCell<T, Holder> extends BaseAdapter {
         return convertView;
     }
 
-    protected abstract View inflateViewAndInjectHolder(Holder holder);
+    protected abstract View inflateViewAndInjectHolder(HOLDER holder);
 
-    protected abstract void reloadHolder(Holder holder, T data);
+    protected abstract void reloadHolder(HOLDER holder, POJO data);
 }
